@@ -7,7 +7,7 @@ d3d10_core_src = [
 d3d10_core_ld_args      = []
 d3d10_core_link_depends = []
 
-if platform != 'windows'
+if platform != 'windows' and platform != 'darwin'
   d3d10_core_ld_args      += [ '-Wl,--version-script', join_paths(meson.current_source_dir(), 'd3d10core.sym') ]
   d3d10_core_link_depends += files('d3d10core.sym')
 endif

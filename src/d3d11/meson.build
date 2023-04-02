@@ -69,7 +69,7 @@ d3d11_shaders = files([
 d3d11_ld_args      = []
 d3d11_link_depends = []
 
-if platform != 'windows'
+if platform != 'windows' and platform != 'darwin'
   d3d11_ld_args      += [ '-Wl,--version-script', join_paths(meson.current_source_dir(), 'd3d11.sym') ]
   d3d11_link_depends += files('d3d11.sym')
 endif
