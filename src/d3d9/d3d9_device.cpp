@@ -3949,7 +3949,7 @@ namespace dxvk {
     DxvkDeviceFeatures enabled = {};
 
     // Geometry shaders are used for some meta ops
-    enabled.core.features.geometryShader = VK_TRUE;
+    enabled.core.features.geometryShader = supported.core.features.geometryShader;
     enabled.core.features.robustBufferAccess = VK_TRUE;
     enabled.extRobustness2.robustBufferAccess2 = supported.extRobustness2.robustBufferAccess2;
 
@@ -3979,7 +3979,7 @@ namespace dxvk {
     enabled.core.features.sampleRateShading = VK_TRUE;
     enabled.core.features.samplerAnisotropy = supported.core.features.samplerAnisotropy;
     enabled.core.features.shaderClipDistance = VK_TRUE;
-    enabled.core.features.shaderCullDistance = VK_TRUE;
+    enabled.core.features.shaderCullDistance = supported.core.features.shaderCullDistance;
 
     // Ensure we support real BC formats and unofficial vendor ones.
     enabled.core.features.textureCompressionBC = VK_TRUE;
