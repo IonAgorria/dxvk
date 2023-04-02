@@ -446,8 +446,6 @@ namespace dxvk {
     enabledFeatures.extMemoryPriority.memoryPriority =
       m_deviceFeatures.extMemoryPriority.memoryPriority;
 
-    enabledFeatures.extRobustness2.nullDescriptor = VK_TRUE;
-
     // We use this to avoid decompressing SPIR-V shaders in some situations
     enabledFeatures.extShaderModuleIdentifier.shaderModuleIdentifier =
       m_deviceFeatures.extShaderModuleIdentifier.shaderModuleIdentifier;

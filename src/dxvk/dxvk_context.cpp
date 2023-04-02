@@ -18,6 +18,9 @@ namespace dxvk {
     m_execBarriers(DxvkCmdBuffer::ExecBuffer),
     m_queryManager(m_common->queryPool()),
     m_staging     (device, StagingBufferSize) {
+    if (m_device->features().extRobustness2.nullDescriptor)
+      m_features.set(DxvkContextFeature::NullDescriptors);
+
     // Init framebuffer info with default render pass in case
     // the app does not explicitly bind any render targets
     m_state.om.framebufferInfo = makeFramebufferInfo(m_state.om.renderTargets);
@@ -5546,8 +5549,12 @@ namespace dxvk {
 
         if (m_vbTracked.set(binding))
           m_cmd->trackResource<DxvkAccess::Read>(m_state.vi.vertexBuffers[binding].buffer());
-      } else {
-        buffers[i] = VK_NULL_HANDLE;
+      } else { 
+        if (m_features.test(DxvkContextFeature::NullDescriptors)) {
+          buffers[i] = VK_NULL_HANDLE;
+        } else {
+          buffers[i] = m_common->dummyResources().bufferHandle();
+        }
         offsets[i] = 0;
         lengths[i] = 0;
         strides[i] = 0;

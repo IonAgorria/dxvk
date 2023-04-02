@@ -63,6 +63,7 @@ namespace dxvk {
    * \brief Context feature bits
    */
   enum class DxvkContextFeature : uint32_t {
+    NullDescriptors,
     TrackGraphicsPipeline,
     VariableMultisampleRate,
     FeatureCount
