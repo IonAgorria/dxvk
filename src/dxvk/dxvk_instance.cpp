@@ -188,8 +188,10 @@ namespace dxvk {
 
       VkResult status = m_vkl->vkCreateInstance(&info, nullptr, &instance);
 
-      if (status != VK_SUCCESS)
+      if (status != VK_SUCCESS) {
+        Logger::err("DxvkInstance::createInstance vkCreateInstance returned: " + std::to_string(status));
         throw DxvkError("DxvkInstance::createInstance: Failed to create Vulkan 1.1 instance");
+      }
     }
 
     // Create the Vulkan instance loader
