@@ -1917,6 +1917,9 @@ namespace dxvk {
     enabled.extTransformFeedback.transformFeedback                = VK_TRUE;
     enabled.extTransformFeedback.geometryStreams                  = VK_TRUE;
 
+    enabled.extRobustness2.robustBufferAccess2                    = supported.extRobustness2.robustBufferAccess2;
+    enabled.extRobustness2.robustImageAccess2                     = supported.extRobustness2.robustImageAccess2;
+
     enabled.extVertexAttributeDivisor.vertexAttributeInstanceRateDivisor      = supported.extVertexAttributeDivisor.vertexAttributeInstanceRateDivisor;
     enabled.extVertexAttributeDivisor.vertexAttributeInstanceRateZeroDivisor  = supported.extVertexAttributeDivisor.vertexAttributeInstanceRateZeroDivisor;
 

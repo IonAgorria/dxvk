@@ -192,12 +192,10 @@ namespace dxvk {
 
     if (m_info.usage & VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT) {
       result = std::max(result, devInfo.core.properties.limits.minUniformBufferOffsetAlignment);
-      result = std::max(result, devInfo.extRobustness2.robustUniformBufferAccessSizeAlignment);
     }
 
     if (m_info.usage & VK_BUFFER_USAGE_STORAGE_BUFFER_BIT) {
       result = std::max(result, devInfo.core.properties.limits.minStorageBufferOffsetAlignment);
-      result = std::max(result, devInfo.extRobustness2.robustStorageBufferAccessSizeAlignment);
     }
 
     if (m_info.usage & (VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT | VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT)) {
