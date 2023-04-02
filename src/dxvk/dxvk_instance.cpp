@@ -185,6 +185,9 @@ namespace dxvk {
       info.ppEnabledLayerNames      = layerList.names();
       info.enabledExtensionCount    = extensionList.count();
       info.ppEnabledExtensionNames  = extensionList.names();
+#ifdef __APPLE__
+      info.flags                    = VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
+#endif
 
       VkResult status = m_vkl->vkCreateInstance(&info, nullptr, &instance);
 
@@ -216,6 +219,9 @@ namespace dxvk {
     std::vector<DxvkExt*> result = {{
       &ext.khrGetSurfaceCapabilities2,
       &ext.khrSurface,
+#ifdef __APPLE__
+      &ext.khrPortabilityEnum,
+#endif
     }};
 
     if (withDebug)

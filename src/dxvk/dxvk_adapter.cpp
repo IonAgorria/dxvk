@@ -970,6 +970,9 @@ namespace dxvk {
       &devExtensions.khrSwapchain,
       &devExtensions.nvxBinaryImport,
       &devExtensions.nvxImageViewHandle,
+#ifdef __APPLE__
+      &devExtensions.khrPortabilitySubset,
+#endif
     }};
   }
 
