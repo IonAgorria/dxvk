@@ -491,8 +491,6 @@ namespace dxvk {
 
 
   void DxsoCompiler::emitPsInit() {
-    m_module.enableExtension("SPV_EXT_demote_to_helper_invocation");
-    m_module.enableCapability(spv::CapabilityDemoteToHelperInvocationEXT);
     m_module.enableCapability(spv::CapabilityDerivativeControl);
 
     m_module.setExecutionMode(m_entryPointId,
@@ -514,6 +512,12 @@ namespace dxvk {
       m_module.defFunctionType(
         m_module.defVoidType(), 0, nullptr));
     this->emitFunctionLabel();
+
+    if (m_analysis->usesKill) {
+      // This extension basically implements D3D-style discard
+      m_module.enableExtension("SPV_EXT_demote_to_helper_invocation");
+      m_module.enableCapability(spv::CapabilityDemoteToHelperInvocationEXT);
+    }
   }
 
 

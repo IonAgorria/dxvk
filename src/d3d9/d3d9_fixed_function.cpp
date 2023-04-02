@@ -324,8 +324,7 @@ namespace dxvk {
     spvModule.opBranchConditional(atestDiscard, atestDiscardLabel, atestKeepLabel);
 
     spvModule.opLabel(atestDiscardLabel);
-    spvModule.opDemoteToHelperInvocation();
-    spvModule.opBranch(atestKeepLabel);
+    spvModule.opKill();
 
     // end if (do_discard)
     spvModule.opLabel(atestKeepLabel);
@@ -2169,8 +2168,6 @@ namespace dxvk {
     m_specUbo = SetupSpecUBO(m_module, m_bindings);
 
     // PS Caps
-    m_module.enableExtension("SPV_EXT_demote_to_helper_invocation");
-    m_module.enableCapability(spv::CapabilityDemoteToHelperInvocationEXT);
     m_module.enableCapability(spv::CapabilityDerivativeControl);
 
     m_module.setExecutionMode(m_entryPointId,
