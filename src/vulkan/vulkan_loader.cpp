@@ -11,9 +11,12 @@ namespace dxvk::vk {
 
   static std::pair<HMODULE, PFN_vkGetInstanceProcAddr> loadVulkanLibrary() {
     static const std::array<const char*, 2> dllNames = {{
-#ifdef _WIN32
+#if defined(_WIN32)
       "winevulkan.dll",
       "vulkan-1.dll",
+#elif defined(__APPLE__)
+      "libvulkan.dylib",
+      "libvulkan.1.dylib",
 #else
       "libvulkan.so",
       "libvulkan.so.1",
