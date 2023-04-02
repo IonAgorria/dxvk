@@ -7,6 +7,12 @@
 #include <unistd.h>
 #include <limits.h>
 #endif
+#ifdef __APPLE__
+//Namespace to avoid mixing definitions such as TRUE/FALSE
+namespace dyld {
+#include <mach-o/dyld.h>
+}
+#endif
 
 #include "util_env.h"
 
@@ -85,6 +91,15 @@ namespace dxvk::env {
     size_t count = readlink("/proc/self/exe", exePath.data(), exePath.size());
 
     return std::string(exePath.begin(), exePath.begin() + count);
+#elif defined(__APPLE__)
+    std::array<char, PATH_MAX> exePath = {};
+    uint32_t size = PATH_MAX;
+    
+    bool success = dyld::_NSGetExecutablePath(exePath.data(), &size) == 0;
+    
+    return std::string(success ? exePath.data() : "");
+#else
+    return {};
 #endif
   }
   
@@ -108,7 +123,11 @@ namespace dxvk::env {
 #else
     std::array<char, 16> posixName = {};
     dxvk::str::strlcpy(posixName.data(), name.c_str(), 16);
+#ifdef __APPLE__
+    ::pthread_setname_np(posixName.data());
+#else
     ::pthread_setname_np(pthread_self(), posixName.data());
+#endif
 #endif
   }
 
