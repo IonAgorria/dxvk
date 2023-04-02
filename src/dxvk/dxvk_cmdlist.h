@@ -942,12 +942,12 @@ namespace dxvk {
 
 
     void cmdWriteTimestamp(
-            VkPipelineStageFlagBits2 pipelineStage,
+            VkPipelineStageFlagBits pipelineStage,
             VkQueryPool             queryPool,
             uint32_t                query) {
       m_cmd.usedFlags.set(DxvkCmdBuffer::ExecBuffer);
 
-      m_vkd->vkCmdWriteTimestamp2(m_cmd.execBuffer,
+      m_vkd->vkCmdWriteTimestamp(m_cmd.execBuffer,
         pipelineStage, queryPool, query);
     }
     
