@@ -1909,7 +1909,7 @@ namespace dxvk {
 
     enabled.vk12.samplerMirrorClampToEdge                         = VK_TRUE;
 
-    enabled.vk13.shaderDemoteToHelperInvocation                   = VK_TRUE;
+    enabled.vk13.shaderDemoteToHelperInvocation                   = supported.vk13.shaderDemoteToHelperInvocation;
 
     enabled.extCustomBorderColor.customBorderColors               = supported.extCustomBorderColor.customBorderColorWithoutFormat;
     enabled.extCustomBorderColor.customBorderColorWithoutFormat   = supported.extCustomBorderColor.customBorderColorWithoutFormat;
