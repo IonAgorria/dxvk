@@ -17,7 +17,11 @@ namespace dxvk {
   
   
   bool DxvkDeviceFilter::testAdapter(const VkPhysicalDeviceProperties& properties) const {
+#ifdef __APPLE__
+    if (properties.apiVersion < VK_MAKE_VERSION(1, 2, 0)) {
+#else
     if (properties.apiVersion < VK_MAKE_VERSION(1, 3, 0)) {
+#endif
       Logger::warn(str::format("Skipping Vulkan ",
         VK_VERSION_MAJOR(properties.apiVersion), ".",
         VK_VERSION_MINOR(properties.apiVersion), " adapter: ",

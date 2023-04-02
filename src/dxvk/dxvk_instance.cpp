@@ -177,7 +177,11 @@ namespace dxvk {
       appInfo.pApplicationName      = appName.c_str();
       appInfo.pEngineName           = "DXVK";
       appInfo.engineVersion         = VK_MAKE_VERSION(2, 1, 0);
+#ifdef __APPLE__
+      appInfo.apiVersion            = VK_MAKE_VERSION(1, 2, 0);
+#else
       appInfo.apiVersion            = VK_MAKE_VERSION(1, 3, 0);
+#endif
 
       VkInstanceCreateInfo info = { VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO };
       info.pApplicationInfo         = &appInfo;
