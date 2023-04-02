@@ -20,7 +20,7 @@ namespace dxvk {
    */
   template<uint32_t BindingCount>
   class DxvkBindingSet {
-    using MaskType = std::conditional_t<(BindingCount > 32), uintptr_t, uint32_t>;
+    using MaskType = std::conditional_t<(BindingCount > 32), uint64_t, uint32_t>;
 
     constexpr static MaskType SetBit = MaskType(1u);
     constexpr static MaskType SetMask = ~MaskType(0u);
