@@ -419,8 +419,8 @@ namespace dxvk {
       m_deviceFeatures.vk13.pipelineCreationCacheControl;
 
     // Core features that we're relying on in various places
-    enabledFeatures.vk13.synchronization2 = VK_TRUE;
-    enabledFeatures.vk13.dynamicRendering = VK_TRUE;
+    enabledFeatures.vk13.synchronization2 = m_deviceFeatures.vk13.synchronization2;
+    enabledFeatures.vk13.dynamicRendering = m_deviceFeatures.vk13.dynamicRendering;
 
     // We expose depth clip rather than depth clamp to client APIs
     enabledFeatures.extDepthClipEnable.depthClipEnable =
