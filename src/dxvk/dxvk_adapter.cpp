@@ -391,9 +391,6 @@ namespace dxvk {
     enabledFeatures.core.features.variableMultisampleRate =
       m_deviceFeatures.core.features.variableMultisampleRate;
 
-    // Always enable memory model so client APIs can use it
-    enabledFeatures.vk12.vulkanMemoryModel = VK_TRUE;
-
     // Optionally used by some client API extensions
     enabledFeatures.vk12.drawIndirectCount =
       m_deviceFeatures.vk12.drawIndirectCount;
@@ -1141,7 +1138,6 @@ namespace dxvk {
       "\n  bufferDeviceAddress                    : ", features.vk12.bufferDeviceAddress,
       "\n  shaderOutputViewportIndex              : ", features.vk12.shaderOutputViewportIndex,
       "\n  shaderOutputLayer                      : ", features.vk12.shaderOutputLayer,
-      "\n  vulkanMemoryModel                      : ", features.vk12.vulkanMemoryModel,
       "\nVulkan 1.3",
       "\n  robustImageAccess                      : ", features.vk13.robustImageAccess,
       "\n  pipelineCreationCacheControl           : ", features.vk13.pipelineCreationCacheControl,
