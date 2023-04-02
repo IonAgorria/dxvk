@@ -1,4 +1,4 @@
-project('dxvk', ['c', 'cpp'], version : 'v2.1', meson_version : '>= 0.49', default_options : [ 'cpp_std=c++17', 'warning_level=2' ])
+project('dxvk', ['c', 'cpp'], version : 'v2.1', meson_version : '>= 0.63', default_options : [ 'cpp_std=c++17', 'warning_level=2' ])
 
 cpu_family = target_machine.cpu_family()
 platform   = target_machine.system()
@@ -33,6 +33,7 @@ if get_option('build_id')
   ]
 endif
 
+dxvk_deps = []
 dxvk_include_dirs = [
   './include',
   './include/vulkan/include',
@@ -115,10 +116,18 @@ else
   dxvk_wsi = get_option('dxvk_native_wsi')
   
   if dxvk_wsi == 'sdl2'
-    lib_sdl2 = cpp.find_library('SDL2')
+    lib_sdl2 = cpp.find_library('SDL2', required: false)
+    if not lib_sdl2.found()
+        lib_sdl2 = dependency('SDL2')
+        dxvk_deps += [ lib_sdl2 ]
+    endif
     compiler_args += ['-DDXVK_WSI_SDL2']
   elif dxvk_wsi == 'glfw'
-    lib_glfw = cpp.find_library('glfw')
+    lib_glfw = cpp.find_library('glfw', required: false)
+    if not lib_glfw.found()
+        lib_glfw = dependency('glfw')
+        dxvk_deps += [ lib_glfw ]
+    endif
     compiler_args += ['-DDXVK_WSI_GLFW']
   endif
   
@@ -132,6 +141,7 @@ endif
 
 dxvk_include_path = include_directories(dxvk_include_dirs)
 
+add_project_dependencies(dxvk_deps, language: 'cpp')
 add_project_arguments(cpp.get_supported_arguments(compiler_args), language: 'cpp')
 add_project_arguments(cc.get_supported_arguments(compiler_args), language: 'c')
 add_project_link_arguments(cpp.get_supported_link_arguments(link_args), language: 'cpp')
